@@ -2,7 +2,6 @@ import React from 'react'
 import { View, StyleSheet, Image, Dimensions, Text } from 'react-native';
 import { colors, fonts, styles } from './../theme';
 import { Character } from '../utils/interface';
-import { TextView } from './TextView';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('screen');
 
@@ -10,12 +9,14 @@ export const ProfileCard = (props: {character: Character}) => {
     const { character } = props;
 
     return (
-        <View style={componentStyle.card}>
+        <View key={character.id} style={componentStyle.card}>
             <Image source={{uri: character?.image}} style={componentStyle.profile} />
-            <Text style={componentStyle.name}>{character.name}</Text>
-            <View style={styles.flexRow}>
+            <Text numberOfLines={1} style={componentStyle.name}>{character.name}</Text>
+            <View style={[styles.flexRow, styles.centerContent]}>
+                <View style={componentStyle.dot}/>
                 <Text style={componentStyle.species}>{character.species}</Text>
-                <Text style={componentStyle.species}>{character.species}</Text>
+                <View style={componentStyle.dot}/>
+                <Text style={componentStyle.status}>{character.status}</Text>
             </View>
         </View>
     )
@@ -23,11 +24,29 @@ export const ProfileCard = (props: {character: Character}) => {
 
 const componentStyle = StyleSheet.create({
     name: {
-        fontSize: fonts.fontSizeH6,
+        fontSize: fonts.fontSizeH5,
+        textAlign: 'center',
         marginVertical: 5,
+        color: colors.secondary,
+        fontWeight: 'bold'
     },
     species: {
-        color: colors.secondary
+        fontSize: fonts.fontSizeH6,
+        textAlign: 'center',
+        marginRight: 5,
+        color: colors.secondary,
+    },
+    status: {
+        fontSize: fonts.fontSizeH6,
+        textAlign: 'center',
+        color: colors.secondary,
+    },
+    dot: {
+        height: 4,
+        width: 4, 
+        marginRight: 5,
+        borderRadius: 2,
+        backgroundColor: colors.secondary
     },
     card: {
         padding: 10,

@@ -10,7 +10,7 @@ export const Characters = () => {
 
     const [characters, setCharacters] = useState<Character[]>([]);
     const [loader, setLoader] = useState<boolean>(true);
-    let info: Info = {current: 0, pages: 0};
+    let info: Info = {current: 0, pages: 1};
 
     useEffect(() => {
         fetchCharacters()
@@ -53,7 +53,7 @@ const componentStyles = StyleSheet.create({
     title: {
         margin: 20,
         color: 'white',
-        fontSize: 20,
+        ...styles.h3,
         alignSelf:'center',
     },
     loader: {
