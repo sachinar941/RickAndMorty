@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Image } from 'react-native';
-import { Characters, Locations, Episodes  } from './screens';
+import { Characters, Locations, Episodes, Profile  } from './screens';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { colors } from './theme'
 
@@ -11,13 +11,14 @@ const Router = () => {
     const Tab = createBottomTabNavigator();
 
     const screen = (name: string, component: any, title: string, headerShown: boolean) => {
-        return( <Stack.Screen name={name} component={component} options={{ headerShown, title, headerTitleStyle: {}, headerStyle: {} }}/>)
+        return( <Stack.Screen name={name} component={component} options={{ headerShown, title, headerStyle: {backgroundColor: colors.bgColor}, headerTintColor: colors.light }}/>)
     }
 
     const CharacterStack = () => {
         return(
-            <Stack.Navigator initialRouteName={'Characters'} screenOptions={{headerStyle: componentStyle.headerStyle}}>
+            <Stack.Navigator initialRouteName={'Characters'} screenOptions={{headerStyle: componentStyle.headerStyle, presentation: 'modal'}}>
                 {screen('Characters', Characters, '', false)}
+                {screen('Profile', Profile, 'Profile', true)}
             </Stack.Navigator>
         )
     }

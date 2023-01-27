@@ -10,7 +10,7 @@ export const Characters = () => {
 
     const [characters, setCharacters] = useState<Character[]>([]);
     const [loader, setLoader] = useState<boolean>(true);
-    let info: Info = {current: 0, pages: 1};
+    const [info, setInfo] = useState<Info>({current: 0, pages: 1});
 
     useEffect(() => {
         fetchCharacters()
@@ -19,12 +19,11 @@ export const Characters = () => {
     const fetchCharacters = async () => {
         if(info.current < info.pages){
             setLoader(true);
-            const response = await getCharacters({ page: info.current});
-            console.log(response?.data)
+            const response = await getCharacters({ page: info.current+1});
             const data = response.data;
             if(response.status == 200 && data && data?.results){
                 setCharacters(characters.concat(data?.results))
-                info = {...info, current: info.current+1, pages: data?.info?.pages? data.info.pages : 0}
+                setInfo({...info, current: info.current+1, pages: data?.info?.pages? data.info.pages : 0});
                 setLoader(false);
             }else{
                 setLoader(false);
@@ -52,8 +51,8 @@ export const Characters = () => {
 const componentStyles = StyleSheet.create({
     title: {
         margin: 20,
-        color: 'white',
-        ...styles.h3,
+        color: colors.light,
+        ...styles.h2,
         alignSelf:'center',
     },
     loader: {

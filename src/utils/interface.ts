@@ -3,7 +3,11 @@ interface Character {
     name: string;
     species: string;
     status: string;
+    gender: string;
     image: string;
+    location: {url: string, name: string};
+    origin: {url: string, name:};
+    episode: string[]
 }
 
 interface Info {

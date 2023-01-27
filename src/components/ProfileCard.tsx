@@ -2,23 +2,26 @@ import React from 'react'
 import { View, StyleSheet, Image, Dimensions, Text } from 'react-native';
 import { colors, fonts, styles } from './../theme';
 import { Character } from '../utils/interface';
+import { useNavigation } from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('screen');
 
 export const ProfileCard = (props: {character: Character}) => {
     const { character } = props;
+    const navigation = useNavigation<any>();
 
     return (
-        <View key={character.id} style={componentStyle.card}>
+        <TouchableOpacity onPress={()=> navigation.navigate('Profile', {character})} key={character.id} style={componentStyle.card}>
             <Image source={{uri: character?.image}} style={componentStyle.profile} />
             <Text numberOfLines={1} style={componentStyle.name}>{character.name}</Text>
             <View style={[styles.flexRow, styles.centerContent]}>
                 <View style={componentStyle.dot}/>
                 <Text style={componentStyle.species}>{character.species}</Text>
                 <View style={componentStyle.dot}/>
-                <Text style={componentStyle.status}>{character.status}</Text>
+                <Text style={componentStyle.gender}>{character.gender}</Text>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
@@ -36,7 +39,7 @@ const componentStyle = StyleSheet.create({
         marginRight: 5,
         color: colors.secondary,
     },
-    status: {
+    gender: {
         fontSize: fonts.fontSizeH6,
         textAlign: 'center',
         color: colors.secondary,
@@ -57,7 +60,6 @@ const componentStyle = StyleSheet.create({
         maxWidth: SCREEN_WIDTH/3 - 10,
         backgroundColor: colors.primary,
     },
-
     profile: {
         height: 100,
         width: (SCREEN_WIDTH/3)-30,
