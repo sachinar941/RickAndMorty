@@ -23,29 +23,29 @@ export const Profile = ({ route, navigation } : any) => {
     }, []);
 
     useEffect(() => {
-        const {character} = route?.params
-        fetchCharacterDetail(character)
+        const {character} = route?.params;
+        fetchCharacterDetail(character);
     }, []);
 
     const fetchCharacterDetail = async (character: Character) => {
         setLoader(true);
         let location: any, origin : any, episodes: any;
-        const list = character.episode.map(item => parseInt(item?.replace(url+"episode/", "")));
-        const locationValue = parseInt(character?.location?.url?.replace(url+"location/", ""));
-        const originValue = parseInt(character?.origin?.url?.replace(url+"location/", ""));
-        if(list.length > 0)
-            episodes = await getEpisode(list)
-        if(locationValue)
-            location = await getLocation([locationValue])
-        if(originValue)
-            origin = await getLocation([originValue])
+        const list = character.episode.map(item => parseInt(item?.replace(url + 'episode/', '')));
+        const locationValue = parseInt(character?.location?.url?.replace(url + 'location/', ''));
+        const originValue = parseInt(character?.origin?.url?.replace(url + 'location/', ''));
+        if (list.length > 0)
+            {episodes = await getEpisode(list);}
+        if (locationValue)
+            {location = await getLocation([locationValue]);}
+        if (originValue)
+            {origin = await getLocation([originValue]);}
         setProfile({character, location: location?.data, origin: origin?.data, episodes: episodes?.data});
         setLoader(false);
-    }
+    };
 
     return (
         <View style={[styles.flex1, {backgroundColor: colors.bgColor}]}>
-            {loader?
+            {loader ?
                 <View style={[styles.centerContent, styles.flex1]}>
                     <ActivityIndicator size={'large'}/>
                 </View>
@@ -66,32 +66,32 @@ export const Profile = ({ route, navigation } : any) => {
                     </View>
                     <Text style={componentStyle.heading}>Current Location</Text>
                     <View style={[styles.centerContent, componentStyle.sectionView]}>
-                        <Text style={[componentStyle.name, {marginTop: 0}]}>{location?.name? location?.name : 'Unknown'}</Text>
+                        <Text style={[componentStyle.name, {marginTop: 0}]}>{location?.name ? location?.name : 'Unknown'}</Text>
                         <View style={[styles.flexRow, styles.centerContent, styles.m1]}>
-                            <Text style={componentStyle.subTitle}>{"dimension: " + (location?.dimension ? location?.dimension : 'Unknown')}</Text>
+                            <Text style={componentStyle.subTitle}>{'dimension: ' + (location?.dimension ? location?.dimension : 'Unknown')}</Text>
                             <View style={componentStyle.dot}/>
-                            <Text style={componentStyle.subTitle}>{"Residents: " + (location?.residents?.length? location?.residents?.length : 'Unknown')}</Text>
+                            <Text style={componentStyle.subTitle}>{'Residents: ' + (location?.residents?.length ? location?.residents?.length : 'Unknown')}</Text>
                         </View>
                     </View>
                     <Text style={componentStyle.heading}>Origin Location</Text>
                     <View style={[styles.centerContent, componentStyle.sectionView]}>
-                        <Text style={[componentStyle.name, {marginTop: 0}]}>{origin?.name? origin?.name : 'Unknown'}</Text>
+                        <Text style={[componentStyle.name, {marginTop: 0}]}>{origin?.name ? origin?.name : 'Unknown'}</Text>
                         <View style={[styles.flexRow, styles.centerContent, styles.m1]}>
-                            <Text style={componentStyle.subTitle}>{"dimension: " + (origin?.dimension ? origin?.dimension : 'Unknown')}</Text>
+                            <Text style={componentStyle.subTitle}>{'dimension: ' + (origin?.dimension ? origin?.dimension : 'Unknown')}</Text>
                             <View style={componentStyle.dot}/>
-                            <Text style={componentStyle.subTitle}>{"Residents: " + (origin?.residents?.length ? origin?.residents?.length : 'Unknown')}</Text>
+                            <Text style={componentStyle.subTitle}>{'Residents: ' + (origin?.residents?.length ? origin?.residents?.length : 'Unknown')}</Text>
                         </View>
                     </View>
-                    <Text style={[componentStyle.heading, {alignSelf: 'center'}]}>{'Was In Episodes ('+(episodes.length ? episodes.length : '0')+')'}</Text>
+                    <Text style={[componentStyle.heading, {alignSelf: 'center'}]}>{'Was In Episodes (' + (episodes.length ? episodes.length : '0') + ')'}</Text>
                     <View style={[componentStyle.mapView, styles.centerContent]}>
                         {episodes.length > 0 ?
                             episodes.map((episode: any) => {
-                                return(
+                                return (
                                     <View key={episode.id} style={[styles.centerContent, componentStyle.episode]}>
                                         <Text style={componentStyle.subTitle}>{episode?.episode}</Text>
                                         <Text style={[componentStyle.subTitle, styles.h6]}>{episode?.name}</Text>
                                     </View>
-                                )
+                                );
                             })
                         :
                             null
@@ -148,17 +148,17 @@ const componentStyle = StyleSheet.create({
         color: colors.light,
     },
     profile: {
-        height: (SCREEN_WIDTH/3),
-        width: (SCREEN_WIDTH/3),
-        borderRadius: (SCREEN_WIDTH/6),
+        height: (SCREEN_WIDTH / 3),
+        width: (SCREEN_WIDTH / 3),
+        borderRadius: (SCREEN_WIDTH / 6),
         alignSelf: 'center',
-        resizeMode: 'contain'
+        resizeMode: 'contain',
     },
     dot: {
         height: 4,
-        width: 4, 
+        width: 4,
         marginHorizontal: 10,
         borderRadius: 2,
-        backgroundColor: colors.light
+        backgroundColor: colors.light,
     },
 });

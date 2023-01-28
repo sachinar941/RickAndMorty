@@ -6,4 +6,3 @@ export default {
     fontSizeH5: 12,
     fontSizeH6: 9,
   };
-  

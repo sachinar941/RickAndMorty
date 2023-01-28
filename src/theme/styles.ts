@@ -7,37 +7,37 @@ export default StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: colors.bgColor
+        backgroundColor: colors.bgColor,
     },
     flex1: {
-        flex: 1
+        flex: 1,
     },
     flexRow: {
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     centerContent: {
         alignItems: 'center',
         justifyContent: 'center',
     },
     m1: {
-        margin: 10
+        margin: 10,
     },
     h1: {
-        fontSize: fonts.fontSizeH1
+        fontSize: fonts.fontSizeH1,
     },
     h2: {
-        fontSize: fonts.fontSizeH2
+        fontSize: fonts.fontSizeH2,
     },
     h3: {
-        fontSize: fonts.fontSizeH3
+        fontSize: fonts.fontSizeH3,
     },
     h4: {
-        fontSize: fonts.fontSizeH4
+        fontSize: fonts.fontSizeH4,
     },
     h5: {
-        fontSize: fonts.fontSizeH5
+        fontSize: fonts.fontSizeH5,
     },
     h6: {
-        fontSize: fonts.fontSizeH6
-    }
+        fontSize: fonts.fontSizeH6,
+    },
 });

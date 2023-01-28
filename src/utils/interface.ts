@@ -6,7 +6,7 @@ interface Character {
     gender: string;
     image: string;
     location: {url: string, name: string};
-    origin: {url: string, name:};
+    origin: {url: string, name: string};
     episode: string[]
 }
 
@@ -17,5 +17,5 @@ interface Info {
 
 export type {
     Character,
-    Info
-}
+    Info,
+};

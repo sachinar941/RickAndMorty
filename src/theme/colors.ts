@@ -3,5 +3,5 @@ export default {
     secondary: '#1e292b',
     light: '#fff',
     muted: 'grey',
-    bgColor: '#151616'
+    bgColor: '#151616',
 };

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { View, StyleSheet, Image, Dimensions, Text } from 'react-native';
 import { colors, fonts, styles } from './../theme';
 import { Character } from '../utils/interface';
@@ -22,8 +22,8 @@ export const ProfileCard = (props: {character: Character}) => {
                 <Text style={componentStyle.gender}>{character.gender}</Text>
             </View>
         </TouchableOpacity>
-    )
-}
+    );
+};
 
 const componentStyle = StyleSheet.create({
     name: {
@@ -31,7 +31,7 @@ const componentStyle = StyleSheet.create({
         textAlign: 'center',
         marginVertical: 5,
         color: colors.secondary,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     species: {
         fontSize: fonts.fontSizeH6,
@@ -46,10 +46,10 @@ const componentStyle = StyleSheet.create({
     },
     dot: {
         height: 4,
-        width: 4, 
+        width: 4,
         marginRight: 5,
         borderRadius: 2,
-        backgroundColor: colors.secondary
+        backgroundColor: colors.secondary,
     },
     card: {
         padding: 10,
@@ -57,14 +57,14 @@ const componentStyle = StyleSheet.create({
         margin: 5,
         borderRadius: 10,
         ...styles.centerContent,
-        maxWidth: SCREEN_WIDTH/3 - 10,
+        maxWidth: SCREEN_WIDTH / 3 - 10,
         backgroundColor: colors.primary,
     },
     profile: {
         height: 100,
-        width: (SCREEN_WIDTH/3)-30,
+        width: (SCREEN_WIDTH / 3) - 30,
         borderRadius: 10,
         alignSelf: 'center',
-        resizeMode: 'contain'
-    }
+        resizeMode: 'contain',
+    },
 });

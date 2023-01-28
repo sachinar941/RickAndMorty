@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 import { colors, styles } from './../theme';
-import { getCharacters } from 'rickmortyapi'
+import { getCharacters } from 'rickmortyapi';
 import { ProfileCard } from '../components';
 import { Character, Info } from '../utils/interface';
 import { TextView } from '../components/TextView';
@@ -13,23 +13,23 @@ export const Characters = () => {
     const [info, setInfo] = useState<Info>({current: 0, pages: 1});
 
     useEffect(() => {
-        fetchCharacters()
+        fetchCharacters();
     }, []);
 
     const fetchCharacters = async () => {
-        if(info.current < info.pages){
+        if (info.current < info.pages){
             setLoader(true);
-            const response = await getCharacters({ page: info.current+1});
+            const response = await getCharacters({ page: info.current + 1});
             const data = response.data;
-            if(response.status == 200 && data && data?.results){
-                setCharacters(characters.concat(data?.results))
-                setInfo({...info, current: info.current+1, pages: data?.info?.pages? data.info.pages : 0});
+            if (response.status == 200 && data && data?.results){
+                setCharacters(characters.concat(data?.results));
+                setInfo({...info, current: info.current + 1, pages: data?.info?.pages ? data.info.pages : 0});
                 setLoader(false);
-            }else{
+            } else {
                 setLoader(false);
             }
         }
-    }
+    };
 
     return (
         <View style={styles.container}>
