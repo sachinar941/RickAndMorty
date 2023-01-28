@@ -4,7 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {StyleSheet, Image} from 'react-native';
 import {Characters, Locations, Episodes, Profile} from './screens';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {colors} from './theme';
+import {colors, styles} from './theme';
 
 const Router = () => {
   const Stack: any = createStackNavigator();
@@ -69,7 +69,7 @@ const Router = () => {
       screenOptions={() => ({
         headerShown: false,
         tabBarStyle: componentStyle.tabBarStyle,
-        tabBarLabelStyle: componentStyle.tabLabelStyle,
+        tabBarLabelStyle: styles.fontFamily,
       })}>
       <Tab.Screen
         name="CharactersTab"
@@ -118,9 +118,6 @@ const componentStyle = StyleSheet.create({
   tabBarStyle: {
     backgroundColor: colors.secondary,
     borderTopWidth: 0,
-  },
-  tabLabelStyle: {
-    fontFamily: 'get_schwifty',
   },
   tabIcon: {
     height: 40,

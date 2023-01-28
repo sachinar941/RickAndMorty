@@ -1,5 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
+import {
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+  SafeAreaView,
+} from 'react-native';
 import {colors, styles} from './../theme';
 import {getCharacters} from 'rickmortyapi';
 import {ProfileCard} from '../components';
@@ -36,7 +41,7 @@ export const Characters = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={characters}
         numColumns={3}
@@ -51,7 +56,7 @@ export const Characters = () => {
         onEndReachedThreshold={0.5}
       />
       {loader && <ActivityIndicator color={colors.primary} size={'small'} />}
-    </View>
+    </SafeAreaView>
   );
 };
 

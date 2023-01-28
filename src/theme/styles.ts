@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import fonts from './fonts';
 import colors from './colors';
 
@@ -43,9 +43,12 @@ export default StyleSheet.create({
   h6: {
     fontSize: fonts.fontSizeH6,
   },
-  fontFamily: {
-    fontFamily: 'get_schwifty',
-  },
+  fontFamily:
+    Platform.OS === 'android'
+      ? {
+          fontFamily: 'get_schwifty',
+        }
+      : {},
   alignSelf: {
     alignSelf: 'center',
   },
