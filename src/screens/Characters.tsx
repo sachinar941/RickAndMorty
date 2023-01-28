@@ -1,61 +1,65 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
-import { colors, styles } from './../theme';
-import { getCharacters } from 'rickmortyapi';
-import { ProfileCard } from '../components';
-import { Character, Info } from '../utils/interface';
-import { TextView } from '../components/TextView';
+import React, {useEffect, useState} from 'react';
+import {View, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
+import {colors, styles} from './../theme';
+import {getCharacters} from 'rickmortyapi';
+import {ProfileCard} from '../components';
+import {Character, Info} from '../utils/interface';
+import {TextView} from '../components/TextView';
 
 export const Characters = () => {
+  const [characters, setCharacters] = useState<Character[]>([]);
+  const [loader, setLoader] = useState<boolean>(true);
+  const [info, setInfo] = useState<Info>({current: 0, pages: 1});
 
-    const [characters, setCharacters] = useState<Character[]>([]);
-    const [loader, setLoader] = useState<boolean>(true);
-    const [info, setInfo] = useState<Info>({current: 0, pages: 1});
+  useEffect(() => {
+    fetchCharacters();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    useEffect(() => {
-        fetchCharacters();
-    }, []);
+  const fetchCharacters = async () => {
+    if (info.current < info.pages) {
+      setLoader(true);
+      const response = await getCharacters({page: info.current + 1});
+      const data = response.data;
+      if (response.status === 200 && data && data?.results) {
+        setCharacters(characters.concat(data?.results));
+        setInfo({
+          ...info,
+          current: info.current + 1,
+          pages: data?.info?.pages ? data.info.pages : 0,
+        });
+        setLoader(false);
+      } else {
+        setLoader(false);
+      }
+    }
+  };
 
-    const fetchCharacters = async () => {
-        if (info.current < info.pages){
-            setLoader(true);
-            const response = await getCharacters({ page: info.current + 1});
-            const data = response.data;
-            if (response.status == 200 && data && data?.results){
-                setCharacters(characters.concat(data?.results));
-                setInfo({...info, current: info.current + 1, pages: data?.info?.pages ? data.info.pages : 0});
-                setLoader(false);
-            } else {
-                setLoader(false);
-            }
-        }
-    };
-
-    return (
-        <View style={styles.container}>
-            <FlatList
-                data={characters}
-                numColumns={3}
-                showsVerticalScrollIndicator={false}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({item, index}) => <ProfileCard character={item}/>}
-                ListHeaderComponent={()=> <TextView textStyle={componentStyles.title}>Rick And Morty</TextView>}
-                onEndReached={fetchCharacters}
-                onEndReachedThreshold={0.5}
-            />
-            {loader && <ActivityIndicator style={componentStyles.loader} color={colors.primary} size={'small'}/>}
-        </View>
-    );
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={characters}
+        numColumns={3}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({item}) => <ProfileCard character={item} />}
+        // eslint-disable-next-line react/no-unstable-nested-components
+        ListHeaderComponent={() => (
+          <TextView textStyle={componentStyles.title}>Rick And Morty</TextView>
+        )}
+        onEndReached={fetchCharacters}
+        onEndReachedThreshold={0.5}
+      />
+      {loader && <ActivityIndicator color={colors.primary} size={'small'} />}
+    </View>
+  );
 };
 
 const componentStyles = StyleSheet.create({
-    title: {
-        margin: 20,
-        color: colors.light,
-        ...styles.h2,
-        alignSelf:'center',
-    },
-    loader: {
-        margin: 20,
-    },
+  title: {
+    margin: 20,
+    color: colors.light,
+    ...styles.h2,
+    alignSelf: 'center',
+  },
 });
