@@ -12,7 +12,7 @@ import {
 import {getEpisode, getLocation} from 'rickmortyapi';
 import {TextView} from '../components/TextView';
 import {Character} from '../utils/interface';
-import {colors, styles, fonts} from './../theme';
+import {colors, styles} from './../theme';
 
 const url = 'https://rickandmortyapi.com/api/';
 const {width: SCREEN_WIDTH} = Dimensions.get('screen');
@@ -23,10 +23,13 @@ export const Profile = ({route, navigation}: any) => {
   const {character, location, origin, episodes} = profile;
 
   useEffect(() => {
+    //To hide bottombar
     navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
     const {character} = route?.params;
+    //To fetch all profile related data
     fetchCharacterDetail(character);
     return () => {
+      //To show bottombar on component unmount
       navigation.getParent()?.setOptions({
         tabBarStyle: {
           display: 'flex',
@@ -41,6 +44,7 @@ export const Profile = ({route, navigation}: any) => {
   const fetchCharacterDetail = async (character: Character) => {
     setLoader(true);
     let location: any, origin: any, episodes: any;
+    //To map episode id from episode string so we can pass in request
     const list = character.episode.map(item =>
       parseInt(item?.replace(url + 'episode/', ''), 10),
     );
@@ -181,7 +185,7 @@ const componentStyle = StyleSheet.create({
   },
   location: {
     marginTop: 0,
-    fontSize: fonts.fontSizeH3,
+    ...styles.h3,
     textAlign: 'center',
     lineHeight: 30,
     color: colors.light,
@@ -206,7 +210,7 @@ const componentStyle = StyleSheet.create({
   heading: {
     marginTop: 20,
     marginBottom: 5,
-    fontSize: fonts.fontSizeH6,
+    ...styles.h6,
     color: colors.muted,
   },
   episode: {
@@ -218,13 +222,11 @@ const componentStyle = StyleSheet.create({
     marginBottom: 10,
   },
   name: {
-    fontSize: fonts.fontSizeH2,
-    // marginTop: 20,
-    // lineHeight: 30,
+    ...styles.h2,
     color: colors.light,
   },
   subTitle: {
-    fontSize: fonts.fontSizeH5,
+    ...styles.h5,
     textAlign: 'center',
     color: colors.light,
   },

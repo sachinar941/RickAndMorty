@@ -14,6 +14,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {StatusBar} from 'react-native';
 
 const App = () => {
+  //To define a default theme for navigation components
   const MyTheme = {
     ...DefaultTheme,
     colors: {...DefaultTheme.colors, primary: colors.primary},
@@ -21,6 +22,7 @@ const App = () => {
 
   return (
     <SafeAreaProvider>
+      {/* Modify screen status bar to blend with app theme */}
       <StatusBar barStyle={'light-content'} backgroundColor={colors.bgColor} />
       <NavigationContainer theme={MyTheme}>
         <Router />

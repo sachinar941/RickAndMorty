@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {StyleSheet, Image} from 'react-native';
 import {Characters, Locations, Episodes, Profile} from './screens';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+//To access Predefined styles, colors
 import {colors, styles} from './theme';
 
 const Router = () => {

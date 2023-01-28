@@ -7,7 +7,9 @@ import {
 } from 'react-native';
 import {colors, styles} from './../theme';
 import {getCharacters} from 'rickmortyapi';
+//Child Components to break the code and improve unnecessary code re-renders and avoid code repetition
 import {ProfileCard} from '../components';
+//Define type interfaces
 import {Character, Info} from '../utils/interface';
 import {TextView} from '../components/TextView';
 
@@ -17,6 +19,7 @@ export const Characters = () => {
   const [info, setInfo] = useState<Info>({current: 0, pages: 1});
 
   useEffect(() => {
+    //Rest request to fetch all characters data
     fetchCharacters();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
