@@ -15,4 +15,9 @@ interface Info {
   current: number;
 }
 
-export type {Character, Info};
+interface Profile {
+  id: number;
+  edisodes: [];
+}
+
+export type {Character, Info, Profile};

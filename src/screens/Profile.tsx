@@ -9,10 +9,12 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
-import {getEpisode, getLocation} from 'rickmortyapi';
+import {getLocation} from 'rickmortyapi';
 import {TextView} from '../components/TextView';
 import {Character} from '../utils/interface';
 import {colors, styles} from './../theme';
+import {useDispatch} from 'react-redux';
+import {getEpisodes} from '../store/actions/profile';
 
 const url = 'https://rickandmortyapi.com/api/';
 const {width: SCREEN_WIDTH} = Dimensions.get('screen');
@@ -21,6 +23,7 @@ export const Profile = ({route, navigation}: any) => {
   const [profile, setProfile] = useState<any>({});
   const [loader, setLoader] = useState<any>({});
   const {character, location, origin, episodes} = profile;
+  const dispatch = useDispatch<any>();
 
   useEffect(() => {
     //To hide bottombar
@@ -56,9 +59,9 @@ export const Profile = ({route, navigation}: any) => {
       character?.origin?.url?.replace(url + 'location/', ''),
       10,
     );
-    if (list.length > 0) {
-      episodes = await getEpisode(list);
-    }
+
+    episodes = await dispatch(getEpisodes(character?.id, list));
+
     if (locationValue) {
       location = await getLocation([locationValue]);
     }
@@ -69,7 +72,7 @@ export const Profile = ({route, navigation}: any) => {
       character,
       location: location?.data,
       origin: origin?.data,
-      episodes: episodes?.data,
+      episodes: episodes,
     });
     setLoader(false);
   };
